@@ -4,7 +4,16 @@ pub enum Language {
     Go,
     Cpp,
     C,
-    Csharp
+    Csharp,
+    Dart,
+    Bash,
+    Python,
+    Java,
+    GDScript,
+    Julia,
+    JavaScript,
+    Kotlin,
+    Lua,
 }
 
 impl Language {
@@ -15,6 +24,15 @@ impl Language {
             "cpp" => Some(Self::Cpp),
             "c" => Some(Self::C),
             "cs" => Some(Self::Csharp),
+            "dart" => Some(Self::Dart),
+            "sh" => Some(Self::Bash),
+            "py" => Some(Self::Python),
+            "java" => Some(Self::Java),
+            "gd" => Some(Self::GDScript),
+            "jl" => Some(Self::Julia),
+            "js" => Some(Self::JavaScript),
+            "kt" => Some(Self::Kotlin),
+            "lua" => Some(Self::Lua),
 
             _ => None
         }
@@ -26,7 +44,16 @@ impl Language {
             Self::C => "C",
             Self::Csharp => "C#",
             Self::Cpp => "C++",
-            Self::Go => "Go"
+            Self::Go => "Go",
+            Self::Dart => "Dart",
+            Self::Bash => "Bash",
+            Self::Python => "Python",
+            Self::Java => "Java",
+            Self::GDScript => "GDScript",
+            Self::Julia => "Julia",
+            Self::JavaScript => "JavaScript",
+            Self::Kotlin => "Kotlin",
+            Self::Lua => "Lua"
         };
 
         language.to_string()
