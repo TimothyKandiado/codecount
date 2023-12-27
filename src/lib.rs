@@ -7,7 +7,7 @@ use language::Language;
 
 static FILES: OnceLock<RwLock<HashMap<String, Vec<PathBuf>>>> = OnceLock::new();
 
-#[derive(Debug, Clone, PartialEq, Eq, Ord)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 struct LanguageLines {
     pub name: String,
     pub lines: usize
@@ -15,7 +15,13 @@ struct LanguageLines {
 
 impl PartialOrd for LanguageLines {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        self.lines.partial_cmp(&other.lines)
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for LanguageLines {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.lines.cmp(&other.lines)
     }
 }
 
@@ -103,7 +109,7 @@ fn add_file(file_path: PathBuf) {
     let language = Language::from_file_extension(extension);
 
     if let Some(language) = language {
-        let ref mut binding = *FILES.get().unwrap().write().unwrap();
+        let binding = &mut (*FILES.get().unwrap().write().unwrap());
 
         if let Some(file_list) = binding.get_mut(&language.name()) {
             file_list.push(file_path);
