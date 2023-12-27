@@ -43,17 +43,18 @@ pub fn start(path: PathBuf) {
 
     let mut language_lines = start_count();
     language_lines.sort();
+    language_lines.reverse();
 
     let mut total_lines = 0usize;
 
-    println!("======= Lines of code ========");
+    println!("================= Lines of code ==================");
     for code_lines in language_lines {
-        println!("{:12} : {:>15}", code_lines.name, code_lines.lines);
+        println!("{:25} : {:>22}", code_lines.name, code_lines.lines);
         total_lines += code_lines.lines;
     }
-    println!("==============================");
-    println!("{:12} : {:>15}", "Total",  total_lines);
-    println!("==============================");
+    println!("==================================================");
+    println!("{:25} : {:>22}", "Total",  total_lines);
+    println!("==================================================");
 }
 
 fn find_files(dir: ReadDir) {

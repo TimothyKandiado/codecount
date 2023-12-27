@@ -14,6 +14,7 @@ pub enum Language {
     JavaScript,
     Kotlin,
     Lua,
+    CHeaders,
 }
 
 impl Language {
@@ -21,7 +22,7 @@ impl Language {
         match extension {
             "rs" => Some(Self::Rust),
             "go" => Some(Self::Go),
-            "cpp" => Some(Self::Cpp),
+            "cpp" | "cc" | "cxx" => Some(Self::Cpp),
             "c" => Some(Self::C),
             "cs" => Some(Self::Csharp),
             "dart" => Some(Self::Dart),
@@ -33,6 +34,7 @@ impl Language {
             "js" => Some(Self::JavaScript),
             "kt" => Some(Self::Kotlin),
             "lua" => Some(Self::Lua),
+            "h" => Some(Self::CHeaders),
 
             _ => None
         }
@@ -53,7 +55,8 @@ impl Language {
             Self::Julia => "Julia",
             Self::JavaScript => "JavaScript",
             Self::Kotlin => "Kotlin",
-            Self::Lua => "Lua"
+            Self::Lua => "Lua",
+            Self::CHeaders => "C/C++ Headers",
         };
 
         language.to_string()
