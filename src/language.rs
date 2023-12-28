@@ -36,7 +36,7 @@ impl Language {
             "lua" => Some(Self::Lua),
             "h" => Some(Self::CHeaders),
 
-            _ => None
+            _ => None,
         }
     }
 

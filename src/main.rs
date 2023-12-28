@@ -4,7 +4,7 @@ fn main() {
     let pwd = env::current_dir();
     if let Err(err) = pwd {
         println!("{}", err);
-        return
+        return;
     }
 
     let pwd = pwd.unwrap();

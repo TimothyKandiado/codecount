@@ -1,7 +1,12 @@
 mod language;
 
-use std::{fs::{self, ReadDir}, path::PathBuf, sync::{RwLock, OnceLock}, io::{BufReader, BufRead}};
 use std::collections::HashMap;
+use std::{
+    fs::{self, ReadDir},
+    io::{BufRead, BufReader},
+    path::PathBuf,
+    sync::{OnceLock, RwLock},
+};
 
 use language::Language;
 
@@ -10,7 +15,7 @@ static FILES: OnceLock<RwLock<HashMap<String, Vec<PathBuf>>>> = OnceLock::new();
 #[derive(Debug, Clone, PartialEq, Eq)]
 struct LanguageLines {
     pub name: String,
-    pub lines: usize
+    pub lines: usize,
 }
 
 impl PartialOrd for LanguageLines {
@@ -37,7 +42,7 @@ pub fn start(path: PathBuf) {
 
     let dir = result.unwrap();
     find_files(dir);
-    
+
     #[cfg(feature = "debug")]
     for (language, filelist) in &*FILES.get().unwrap().read().unwrap() {
         print!("{language}: ");
@@ -59,7 +64,7 @@ pub fn start(path: PathBuf) {
         total_lines += code_lines.lines;
     }
     println!("==================================================");
-    println!("{:25} : {:>22}", "Total",  total_lines);
+    println!("{:25} : {:>22}", "Total", total_lines);
     println!("==================================================");
 }
 
@@ -71,20 +76,19 @@ fn find_files(dir: ReadDir) {
         }
 
         let entry = entry.unwrap();
-        
+
         let filetype = entry.file_type();
-        if let Err(err) = filetype{
+        if let Err(err) = filetype {
             println!("{}", err);
             continue;
         }
 
         let filetype = filetype.unwrap();
-        
+
         if filetype.is_file() {
             let file_path = entry.path();
             add_file(file_path);
-        }
-        else if filetype.is_dir(){
+        } else if filetype.is_dir() {
             let dir = entry.path().read_dir();
             if let Err(err) = dir {
                 println!("{}", err);
@@ -100,7 +104,7 @@ fn find_files(dir: ReadDir) {
 fn add_file(file_path: PathBuf) {
     let extension = file_path.extension();
     if extension.is_none() {
-        return
+        return;
     }
 
     let extension = extension.unwrap();
@@ -123,14 +127,17 @@ fn add_file(file_path: PathBuf) {
 fn start_count() -> Vec<LanguageLines> {
     let binding = FILES.get().unwrap().read().unwrap();
     let mut code_lines = Vec::new();
-    
+
     for (language, filelist) in &*binding {
         let mut lines = 0usize;
         for file in filelist {
             lines += count_lines_in_file(file);
         }
-        
-        code_lines.push(LanguageLines {name: language.clone(), lines})
+
+        code_lines.push(LanguageLines {
+            name: language.clone(),
+            lines,
+        })
     }
 
     code_lines
