@@ -2,6 +2,12 @@
 name = "codecount"
 version = "1.0.0"
 edition = "2021"
+license-file = "License"
+repository = "https://github.com/TimothyKandiado/codecount"
+readme = "Readme.md"
+description = "A command line utility for counting lines of code in a project folder"
+authors = ["Timothy Kandiado <kandiadotimothy@gmail.com>"]
+keywords = ["cloc", "count-lines"]
 
 [features]
 debug = []
