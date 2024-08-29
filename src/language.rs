@@ -15,6 +15,7 @@ pub enum Language {
     Kotlin,
     Lua,
     CHeaders,
+    Nova,
 }
 
 impl Language {
@@ -35,6 +36,7 @@ impl Language {
             "kt" => Some(Self::Kotlin),
             "lua" => Some(Self::Lua),
             "h" => Some(Self::CHeaders),
+            "nova" => Some(Self::Nova),
 
             _ => None,
         }
@@ -57,6 +59,7 @@ impl Language {
             Self::Kotlin => "Kotlin",
             Self::Lua => "Lua",
             Self::CHeaders => "C/C++ Headers",
+            Self::Nova => "Nova",
         };
 
         language.to_string()
